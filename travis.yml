@@ -1,0 +1,37 @@
+language: python
+
+dist: focal
+
+python:
+  - "3.11"
+
+env:
+  - DJANGO=5.0.2
+
+install:
+  - pip install -r requirements.txt
+  - pip install black
+  - pip install flake8
+  - pip install coveralls
+
+before_script:
+  - python manage.py migrate
+
+script:
+  - black --check .
+  - flake8 .
+  - coverage run --source=mysite,polls manage.py test
+
+after_script:
+  - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $aws_access_key_id
+  secret_access_key: $aws_secret_access_key
+  region: "us-west-2"
+  app: "django-tutorial"
+  env: "django-env"
+  bucket_name: "elasticbeanstalk-us-west-2-419323569300"
+  on:
+    branch: main
