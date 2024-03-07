@@ -7,3 +7,5 @@ main:
 Personal Assignment
 
 https://coveralls.io/github/quanheng1997/swe1-app
+
+App link: http://django-env.eba-jr3b3e6b.us-west-2.elasticbeanstalk.com/polls/
